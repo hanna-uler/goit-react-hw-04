@@ -1,11 +1,17 @@
-import css from "./SearchBar.module.css"
+import css from './SearchBar.module.css'
+import toast from 'react-hot-toast'
 
 export default function SearchBar({ onSubmit }) {
     const handleSubmit = (evt) => {
         evt.preventDefault();
+        // const notify = () => toast('Please enter the search query.');
+
         const form = evt.target;
         const searchQuery = form.elements.searchInput.value;
         console.log(searchQuery);
+        if (searchQuery === "") {
+            toast("Please enter the search query.");
+        }
 
         onSubmit(searchQuery);
         form.reset()

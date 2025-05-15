@@ -1,5 +1,6 @@
 import './App.module.css'
 import SearchBar from '../SearchBar/SearchBar'
+import { Toaster } from 'react-hot-toast';
 
 export default function App() {
   const searchPictures = (searchQuery) => {
@@ -10,6 +11,7 @@ export default function App() {
     <> 
       <p>Project is in progress...</p>  
       <SearchBar onSubmit={searchPictures} />
+      <Toaster position="top-right" reverseOrder={false} duration="3000"/>
     </>
   )
 }
