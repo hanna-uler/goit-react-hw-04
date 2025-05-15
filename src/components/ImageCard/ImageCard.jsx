@@ -1,4 +1,5 @@
 import css from "./ImageCard.module.css"
+import { IoLogoInstagram } from "react-icons/io5";
 
 export default function ImageCard({imageUrl, alt, authorImage, authorName, portfolioUrl, instagram, likes }) {
     
@@ -14,7 +15,7 @@ export default function ImageCard({imageUrl, alt, authorImage, authorName, portf
                             {authorName}
                         </a>
                         <a href={instaLink} target="_blank" rel="noopener noreferrer" className={css.authorInstagram}>
-                            Instagram: @{instagram}
+                            <IoLogoInstagram /> @{instagram}
                         </a>
                     </div>
             </div>
