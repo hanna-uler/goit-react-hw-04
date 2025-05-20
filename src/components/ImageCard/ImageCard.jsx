@@ -14,12 +14,12 @@ export default function ImageCard({imageUrl, alt, authorImage, authorName, portf
                         <a href={portfolioUrl} target="_blank" rel="noopener noreferrer" className={css.authorName}>
                             {authorName}
                         </a>
-                        <a href={instaLink} target="_blank" rel="noopener noreferrer" className={css.authorInstagram}>
-                            <IoLogoInstagram /> @{instagram}
-                        </a>
+                        {instagram ? <a href={instaLink} target="_blank" rel="noopener noreferrer" className={css.authorInstagram}>
+                            <IoLogoInstagram className={css.icon} size="1.5rem"/> @{instagram}
+                        </a> : <p className={css.authorInstagram}></p>}
                     </div>
-            </div>
-                <div className={css.likes}>❤️ {likes}</div>
+                </div>
+                <p className={css.likes}>❤️ {likes}</p>
             </div>
         </div>
     )

@@ -1,11 +1,9 @@
 import css from './SearchBar.module.css'
 import toast from 'react-hot-toast'
 
-export default function SearchBar({ onSubmit, testApi }) {
+export default function SearchBar({ onSubmit }) {
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        // const notify = () => toast('Please enter the search query.');
-
         const form = evt.target;
         const searchQuery = form.elements.searchInput.value;
         console.log(searchQuery);
@@ -13,16 +11,6 @@ export default function SearchBar({ onSubmit, testApi }) {
             toast("Please enter the search query.");
         }
         onSubmit(searchQuery);
-        // testApi().then(response => {
-        //     console.log(response);
-        //     console.log(response.data);
-        //     console.log(response.data.likes);
-        //     console.log(response.data.urls);
-        //     console.log(response.data.user);
-        //     console.log(response.data.user.social.instagram_username);
-        //     console.log(response.data.user.portfolio_url);
-        //     console.log(response.data.user.social);
-        // });
         form.reset()
     }
     return (
