@@ -4,6 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import axios from 'axios';
 import ImageGallery from '../ImageGallery/ImageGallery';
 import { useState, useEffect } from 'react';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 
 export default function App() {
@@ -27,7 +28,7 @@ export default function App() {
     <> 
       <p>Project is in progress...</p>  
       <SearchBar onSubmit={searchPictures}/>
-      {pictures.length > 0 && <ImageGallery picsArray={pictures}/>}
+      {pictures.length > 0 && <ImageGallery picsArray={pictures} />}
       <Toaster position="top-right" reverseOrder={false} duration="3000"/>
     </>
   )
