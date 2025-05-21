@@ -5,8 +5,8 @@ export default function SearchBar({ onSubmit }) {
     const handleSubmit = (evt) => {
         evt.preventDefault();
         const form = evt.target;
-        const searchQuery = form.elements.searchInput.value;
-        console.log(searchQuery);
+        const { searchInput } = form.elements;
+        const searchQuery = searchInput.value.trim("");
         if (searchQuery === "") {
             toast("Please enter the search query.");
         }
