@@ -7,7 +7,7 @@ import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import fetchPictures from '../../pictures-api';
 import Loader from '../Loader/Loader';
 import LoadMoreBtn from '../LoadMoreBtn/LoadMoreBtn';
-
+import NoResultsMessage from '../NoResultsMessage/NoResultsMessage';
 
 export default function App() {
   const [pictures, setPictures] = useState([]);
@@ -15,13 +15,12 @@ export default function App() {
   const [isError, setError] = useState(false);
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
-  const [needLoadMoreBtn, setLoadMoreBtn] = useState(false);
+  const [totalPages, setTotalPages] = useState(1);
 
   const onSearchSubmit = async (searchQuery) => {
     setPictures([]);
     setPage(1);
     setQuery(searchQuery);
-    setLoadMoreBtn(false);
   }
   
   const incrementPage = () => {
@@ -38,10 +37,8 @@ export default function App() {
         setLoading(true);
         const data = await fetchPictures(query, page);
         const newPicArray = data.results;
+        setTotalPages(data.total_pages);
         setPictures((prevPicArray) => [...prevPicArray, ...newPicArray]);
-        if (data.total_pages > page) {
-          setLoadMoreBtn(true);
-        }
       } catch {
         setError(true);
       } finally {
@@ -58,7 +55,8 @@ export default function App() {
       {isError && <ErrorMessage/>}
       {pictures.length > 0 && <ImageGallery picsArray={pictures} />}
       {isLoading && <Loader />}
-      {needLoadMoreBtn && <LoadMoreBtn turnPage={incrementPage} />}
+      {totalPages > page && !isLoading && <LoadMoreBtn turnPage={incrementPage} />}
+      {totalPages === 0 && <NoResultsMessage/> }
       <Toaster position="top-right" reverseOrder={false} duration="3000" />
     </>
   )
