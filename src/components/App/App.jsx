@@ -2,7 +2,7 @@ import './App.module.css'
 import SearchBar from '../SearchBar/SearchBar'
 import { Toaster } from 'react-hot-toast';
 import ImageGallery from '../ImageGallery/ImageGallery';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import fetchPictures from '../../pictures-api';
 import Loader from '../Loader/Loader';
@@ -46,7 +46,14 @@ export default function App() {
       }
     };
     upgradeGallery();
-  }, [query, page])
+  }, [query, page]);
+
+  const loaderRef = useRef(null);
+  useEffect(() => {
+  if (isLoading && loaderRef.current) {
+    loaderRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+}, [isLoading]);
   
   return (
     <> 
@@ -54,7 +61,11 @@ export default function App() {
       <SearchBar onSubmit={onSearchSubmit}/>
       {isError && <ErrorMessage/>}
       {pictures.length > 0 && <ImageGallery picsArray={pictures} />}
-      {isLoading && <Loader />}
+      {isLoading && (
+        <div ref={loaderRef}>
+          <Loader />
+        </div>
+      )}
       {totalPages > page && !isLoading && <LoadMoreBtn turnPage={incrementPage} />}
       {totalPages === 0 && <NoResultsMessage/> }
       <Toaster position="top-right" reverseOrder={false} duration="3000" />
