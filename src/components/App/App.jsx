@@ -55,9 +55,9 @@ export default function App() {
     <> 
       <p>Project is in progress...</p>  
       <SearchBar onSubmit={onSearchSubmit}/>
-      {isLoading && <Loader />}
       {isError && <ErrorMessage/>}
       {pictures.length > 0 && <ImageGallery picsArray={pictures} />}
+      {isLoading && <Loader />}
       {needLoadMoreBtn && <LoadMoreBtn turnPage={incrementPage} />}
       <Toaster position="top-right" reverseOrder={false} duration="3000" />
     </>
