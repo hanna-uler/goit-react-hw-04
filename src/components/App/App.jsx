@@ -15,52 +15,50 @@ export default function App() {
   const [isError, setError] = useState(false);
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
+  const [needLoadMoreBtn, setLoadMoreBtn] = useState(false);
 
-  const searchPictures = async (searchQuery) => {
+  const onSearchSubmit = async (searchQuery) => {
+    setPictures([]);
     setPage(1);
     setQuery(searchQuery);
+    setLoadMoreBtn(false);
   }
   
   const incrementPage = () => {
     setPage(page + 1);
-    // console.log(page);
   }
 
   useEffect(() => {
     if (query === "") {
       return;
     }
-    fetchPictures(query, page).then((data)=>{
-      const newPicArray = data.results;
-      setPictures((prevPicArray) => {
-        return [...prevPicArray, ...newPicArray];
-      })
-    });
-    // const upgradeGallery = async (query, page) =>{
-    // try {
-    //   setError(false);
-    //   setPictures([]);
-    //   setLoading(true);
-    //   const data = await fetchPictures(query);
-    //   setPictures(data.results);
-    // } catch {
-    //   setError(true);
-    // } finally {
-    //   setLoading(false);
-    // }
-    // }
-    // upgradeGallery();
-    console.log(query, page);
-}, [query, page])
-
+    const upgradeGallery = async () => {
+      try {
+        setError(false);
+        setLoading(true);
+        const data = await fetchPictures(query, page);
+        const newPicArray = data.results;
+        setPictures((prevPicArray) => [...prevPicArray, ...newPicArray]);
+        if (data.total_pages > page) {
+          setLoadMoreBtn(true);
+        }
+      } catch {
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    };
+    upgradeGallery();
+  }, [query, page])
+  
   return (
     <> 
       <p>Project is in progress...</p>  
-      <SearchBar onSubmit={searchPictures}/>
+      <SearchBar onSubmit={onSearchSubmit}/>
       {isLoading && <Loader />}
       {isError && <ErrorMessage/>}
       {pictures.length > 0 && <ImageGallery picsArray={pictures} />}
-      <LoadMoreBtn turnPage={incrementPage} />
+      {needLoadMoreBtn && <LoadMoreBtn turnPage={incrementPage} />}
       <Toaster position="top-right" reverseOrder={false} duration="3000" />
     </>
   )
