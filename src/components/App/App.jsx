@@ -57,6 +57,7 @@ export default function App() {
       try {
         setError(false);
         setLoading(true);
+        setTotalPages(1);
         const data = await fetchPictures(query, page);
         const newPicArray = data.results;
         setTotalPages(data.total_pages);
@@ -90,7 +91,6 @@ export default function App() {
   
   return (
     <div className={css.container}> 
-      <p>Project is in progress...</p>  
       <SearchBar onSubmit={onSearchSubmit}/>
       {isError && <ErrorMessage/>}
       {pictures.length > 0 && <ImageGallery picsArray={pictures} onImageClick={openModal} />}
@@ -99,7 +99,7 @@ export default function App() {
           <Loader />
         </div>
       )}
-      {totalPages > page && !isLoading && <LoadMoreBtn turnPage={incrementPage} />}
+      {pictures.length > 0 && totalPages > page && !isLoading && <LoadMoreBtn turnPage={incrementPage} />}
       {totalPages === 0 && <NoResultsMessage/> }
       <Toaster
         position="top-right"

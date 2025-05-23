@@ -2,48 +2,22 @@
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-}
-
-a {
-  font-weight: 500;
-  text-decoration: inherit;
-}
-a:hover {
+  --green-light: #d8f3dc;
+  --green-main: #82c798;
+  --green-dark: #117d47;
+  --text-color: #333;
+  --accent-color: #2e7d32;
+  background-color: var(--green-light);
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-  margin: 0;
-}
-
-ul,
-ol {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-img {
-  display: block;
-  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--green-light);
+  color: var(--text-color);
 }
 
 button {
@@ -52,12 +26,13 @@ button {
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
-  font-family: inherit;
-  background-color: #82c798;
+  background-color: var(--green-main);
+  color: white;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: background-color 0.25s;
 }
+
 button:hover,
 button:focus {
-  background-color: #117d47;
+  background-color: var(--green-dark);
 }

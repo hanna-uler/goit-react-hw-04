@@ -14,7 +14,7 @@ export default function SearchBar({ onSubmit }) {
         form.reset()
     }
     return (
-        <header className={css.conteiner}>
+        <header className={css.container}>
             <form className={css.form} onSubmit={handleSubmit}>
                 <input
                     className={css.input}
@@ -22,7 +22,7 @@ export default function SearchBar({ onSubmit }) {
                     name="searchInput"
                     autoComplete="off"
                     autoFocus
-                    placeholder="Search images and photos"
+                    placeholder="Search images and photos here"
                 />
                 <button className={css.btn} type="submit">Search</button>
             </form>
